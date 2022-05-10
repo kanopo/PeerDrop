@@ -14,6 +14,12 @@ const PORT = 4000;
 
 let recivers = [];
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "p2p.kanopo.org"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+})
+
 app.get("/", (req, res) => {
   res.send({ response: "signaling server alive" }).status(200);
 });
