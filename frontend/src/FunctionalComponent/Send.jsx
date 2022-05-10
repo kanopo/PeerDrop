@@ -5,10 +5,7 @@ import { io } from "socket.io-client";
 import Peer from "peerjs";
 
 const Send = () => {
-
-
   let worker1 = new Worker("./blobToBinaryArray.js");
-  
 
   const [socket, setSocket] = useState(io);
   const [peer, setPeer] = useState(
@@ -62,16 +59,14 @@ const Send = () => {
       //console.log(selectedId);
       //socket.emit("senderInitialSignal", [selectedId, signalOffer]);
 
-      let conn = peer.connect(selectedId)
-      setConnection(conn)
-
+      let conn = peer.connect(selectedId);
+      setConnection(conn);
     } else {
       console.error("Select one peer");
     }
   };
 
   const [file, setFile] = useState();
-  const [blob, setBlob] = useState();
   const [arrayBuffer, setArrayBuffer] = useState();
 
   const selectFile = (event) => {
@@ -104,11 +99,6 @@ const Send = () => {
     });
   };
 
-  
-
-
-
-
   return (
     <div className="min-h-[86vh] bg-[#2e3440] text-[#d8dee9]">
       <motion.div
@@ -117,11 +107,13 @@ const Send = () => {
         transition={{ ease: "easeInOut", duration: 0.5 }}
       >
         <div className="min-h-[86vh] flex flex-col justify-center py-10 items-center">
-          <p>This is the list of online peers:</p>
-          <button onClick={getUsers}>refresh</button>
+          <form className="flex flex-col border-2 rounded-lg justify-center items-center">
+            <p className="pt-5">This is the list of online peers:</p>
 
-          <form>
-            <select className="bg-[#2e3440] text-[#d8dee9]" id="selectReciver">
+            <select
+              className="bg-[#2e3440] text-[#d8dee9] p-3 m-3 w-[70vw] md:w-[30vw] text-center border-2 rounded-lg hover:text-[#2e3440] hover:bg-[#d8dee9]"
+              id="selectReciver"
+            >
               <option value={null} defaultValue>
                 Select one peer to connect with
               </option>
@@ -131,26 +123,38 @@ const Send = () => {
                 </option>
               ))}
             </select>
-            <input type="submit" value="Try to connect" onClick={tryConnect} />
+
+            <button
+              onClick={getUsers}
+              className="p-3 m-3 w-[70vw] md:w-[30vw] text-center border-2 rounded-lg hover:text-[#2e3440] hover:bg-[#d8dee9]"
+            >
+              refresh
+            </button>
+
+            <input
+              type="submit"
+              value="Try to connect"
+              onClick={tryConnect}
+              className="p-3 m-3 w-[70vw] md:w-[30vw] text-center border-2 rounded-lg hover:text-[#2e3440] hover:bg-[#d8dee9]"
+            />
           </form>
           {state}
 
           <div className="mt-5 flex flex-col justify-center items-center border-2 rounded-lg ">
-            <h1 className="py-5">Select the file you want to share</h1>
+            <h1 className="py-3">Select the file you want to share</h1>
             <input
               type="file"
               onChange={selectFile}
-              className="input input-md m-5 border-2 rounded-lg p-2 w-[70vw] md:w-[30vw] hover:text-[#2e3440] hover:bg-[#d8dee9]"
+              className="input input-md m-3 border-2 rounded-lg p-2 w-[70vw] md:w-[30vw] hover:text-[#2e3440] hover:bg-[#d8dee9]"
             ></input>
             <button
-              className="p-5 m-5 w-[70vw] md:w-[30vw] text-center border-2 rounded-lg hover:text-[#2e3440] hover:bg-[#d8dee9]"
+              className="p-3 m-3 w-[70vw] md:w-[30vw] text-center border-2 rounded-lg hover:text-[#2e3440] hover:bg-[#d8dee9]"
               onClick={sendFile}
             >
               Send file
             </button>
-            </div>
+          </div>
 
-       
           <p className="p-5">(ﾉ◕ヮ◕)ﾉ*:・ﾟ✧</p>
         </div>
       </motion.div>

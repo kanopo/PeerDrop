@@ -16,14 +16,14 @@ const P2P = () => {
           <p>Do you want</p>
           <Link
             to="/p2p/send"
-            className="p-5 m-5 w-[50vw] md:w-[30vw] text-center border-2 rounded-lg hover:text-[#2e3440] hover:bg-[#d8dee9]"
+            className="p-3 m-3 w-[70vw] md:w-[30vw] text-center border-2 rounded-lg hover:text-[#2e3440] hover:bg-[#d8dee9]"
           >
             Send
           </Link>
           <p>or</p>
           <Link
             to="/p2p/recive"
-            className="p-5 m-5 w-[50vw] md:w-[30vw] text-center border-2 rounded-lg hover:text-[#2e3440] hover:bg-[#d8dee9]"
+            className="p-3 m-3 w-[70vw] md:w-[30vw] text-center border-2 rounded-lg hover:text-[#2e3440] hover:bg-[#d8dee9]"
           >
             Recive
           </Link>

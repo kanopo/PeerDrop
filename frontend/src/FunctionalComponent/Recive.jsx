@@ -7,7 +7,7 @@ const Recive = () => {
   const [socket, setSocket] = useState(io);
   const [peer, setPeer] = useState(new Peer());
 
-  const [state, setState] = useState("");
+  const [state, setState] = useState("Not connected");
 
   let [socketId, setSocketId] = useState("");
 
@@ -39,7 +39,6 @@ const Recive = () => {
 
   const [file, setFile] = useState();
   const [downloadUI, setDownlodUI] = useState(<h1>nothing to download</h1>);
-  const [copied, setCopied] = useState("");
 
   peer.on("open", () => {
     if (peer.id.length < 25) {
@@ -47,47 +46,49 @@ const Recive = () => {
   });
 
   peer.on("connection", (conn) => {
-    console.log("connection")
-    setState("Waiting for file")
+    console.log("connection");
+    setState("Waiting for file");
     let uuid = crypto.randomUUID();
-      conn.on("data", (data) => {
-        console.log("recived: ", data);
+    conn.on("data", (data) => {
+      console.log("recived: ", data);
 
-        let blob = new Blob([data.file], { type: data.filetype });
-        let url = URL.createObjectURL(blob);
+      let blob = new Blob([data.file], { type: data.filetype });
+      let url = URL.createObjectURL(blob);
 
-        let handleDownload = async () => {
-          setFile({
-            id: uuid,
-            url: url,
-            name: data.filename,
-          });
+      let handleDownload = async () => {
+        setFile({
+          id: uuid,
+          url: url,
+          name: data.filename,
+        });
 
-          setDownlodUI(
-            <a href={file.url} download={file.name}>
-              {file.name}
-            </a>
-          );
-        };
+        setDownlodUI(
+          <a href={file.url} download={file.name}>
+            {file.name}
+          </a>
+        );
+      };
 
-        handleDownload();
-      });
-  })
+      handleDownload();
+    });
+  });
 
   useEffect(() => {
     if (file === undefined) {
       setDownlodUI(<h1>Nothing recived</h1>);
     } else {
       setDownlodUI(
-        <a href={file.url} download={file.name} className="p-5 m-5 w-[70vw] md:w-[30vw] text-center border-2 rounded-lg hover:text-[#2e3440] hover:bg-[#d8dee9] visible">
-          Download {file.name}
+        <a
+          href={file.url}
+          download={file.name}
+          className="border-2 rounded-lg p-3 m-3 max-w-[70vw] md:max-w-[30vw] hover:text-[#2e3440] hover:bg-[#d8dee9] visible"
+        >
+          Download
         </a>
       );
-      setCopied("")
+      setState("Ready to save");
     }
   }, [file]);
-
-
 
   return (
     <div className="min-h-[86vh] bg-[#2e3440] text-[#d8dee9]">
@@ -97,13 +98,20 @@ const Recive = () => {
         transition={{ ease: "easeInOut", duration: 0.5 }}
       >
         <div className="min-h-[86vh] flex flex-col justify-center py-10 items-center">
-          <p>Your id is:</p>
-          <p>{peer.id}</p>
+          <div className="border-2 rounded-lg flex flex-col justify-center items-center">
+            <div className="border-2 rounded-lg flex flex-col justify-center items-center p-3 m-3 mt-5 w-[70vw] md:w-[30vw]">
+              <p>Your id is:</p>
+              <p>{peer.id}</p>
+            </div>
+            <div className="border-2 rounded-lg flex flex-col justify-center items-center p-3 m-3 w-[70vw] md:w-[30vw] ">
+              <p className="flex flex-col justify-center items-center text-[#bf616a]">
+                {state}
+              </p>
+            </div>
 
-          <div className="text-xl underline text-[#bf616a]">{state}</div>
-
-          <div className="invisible pt-10 pb-5">
-            {downloadUI}
+            <div className="invisible my-5 mb-8">
+              {downloadUI}
+            </div>
           </div>
 
           <p className="p-5">(ﾉ◕ヮ◕)ﾉ*:・ﾟ✧</p>

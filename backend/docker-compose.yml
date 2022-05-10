@@ -3,4 +3,6 @@ services:
   web: 
     build: .
     ports:
-      - "4000:4000"
+      - 4000:4000
+    
+    restart: always
