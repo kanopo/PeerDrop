@@ -44,10 +44,7 @@ The idea is that i need:
 
 ## NAT
 
-
-
-
-
+![ivrpowers-turn-stun-screen 005](https://user-images.githubusercontent.com/101810067/167648785-4202639f-534b-40aa-840e-c9218140a007.jpeg)
 
 
 
