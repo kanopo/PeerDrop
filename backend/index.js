@@ -41,18 +41,6 @@ io.on("connection", (socket) => {
   });
 
 
-  // ! ricevo il signal dal peer inizializzatore e lo devo mandare al peer richiesto per la connessione
-  socket.on("senderInitialSignal", ([selectedId, signal]) => {
-    socket.to(selectedId).emit("senderInitialSignal", [socket.id, signal])
-  })
-
-  socket.on("reciverInitialSignal", ([senderId, signal]) => {
-    //console.log(senderId)
-    //console.log(signal)
-
-    // ! ora mando il signal di risposta al sender iniziale
-    socket.to(senderId).emit("reciverAnswer", signal)
-  })
 });
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
