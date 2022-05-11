@@ -1,8 +1,0 @@
-Coturn
-PeerJS
-SocketIO
-TailwindCSS
-Nord
-NATs
-io
-PeerDrop

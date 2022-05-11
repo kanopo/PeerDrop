@@ -14,40 +14,40 @@
   - [Demo](#demo)
 
 ## 	Involved technology
-PeerDrop is a "*web app*" built using:
+PerDrop is a "*webapp*" built using:
 - [ReactJS](https://reactjs.org/)
 - [PeerJS](https://peerjs.com/)
 - [SocketIO](https://socket.io/)
-- [TailwindCSS](https://tailwindcss.com/)
+- [Tailwindcss](https://tailwindcss.com/)
 - [Coturn](https://github.com/coturn/coturn)
 - [Nord theme](https://www.nordtheme.com/)
 
 
 ## The idea
-I really love the AirDrop features from Apple, but that functionality have some limitations:
-- devices need to be physically close
+I really love the AirDrop functionality from Apple, but that functionality have some limitations:
+- devices need to be fisically close
 - work only with Apple devices
 
-AirDrop can send huge file without noticeable compression by the final user.
+AirDrop can send really big file without noticeable compression by the final user.
 
 
-Other alternative for sending file to other people are:
+Other alternative for sending file to ather people are:
 - if you are close
-  - USB stick
-- if you are far away:
+  - usb stick
+- if you are not close:
   - small file
     - mail
-    - Telegram
-    - WhatsApp
+    - telegram
+    - whatsapp
   - big file
-    - upload on Google Drive or similar
+    - upload on google drive or similar
     - seeding a torrent or similar
 
 
-The features this projects has:
-- simple UI
-- large availability in terms of devices supported(WebRTC support lots of devices)
-- fast sending and receiving process(Cloud storage frequently have band limitations)
+The idea is that i need:
+- simple ui
+- large availability in terms of devices supported(WebRTC support lot's of devices)
+- fast sending and reciving process(Cloud storage frequently have band limitations)
 
 
 ## NAT
@@ -60,13 +60,12 @@ Some users try to connect through different IP networks where Firewalls and NATs
 Sometimes, you can use a protocol called STUN (Session Traversal Utilities for NAT) that allows clients to discover their public IP address and the type of NAT they are behind.
 
 ### TURN
-However, even if the STUN server is properly set up, there are very restrictive corporate networks (e.g: UDP traffic forbidden, only 443 TCP allowed…), which will require clients to use a TURN (Traversal Using Relays around NAT) server to relay traffic if direct (peer to Video Gateway) connection fails.
+However, even if we setup properly a STUN server, there are very restrictive corporate networks (e.g: UDP traffic forbidden, only 443 TCP allowed…), which will require clients to use a TURN (Traversal Using Relays around NAT) server to relay traffic if direct (peer to Video Gateway) connection fails.
 
 
 
 ### Coturn
-For the networking around NATs I choose an open source project called Coturn with a simple configuration file:
-
+Fot the networking around NATs I used a open source project colled coturn with this configs:
 ```
 # /etc/turnserver.conf
 
@@ -89,24 +88,22 @@ stale-nonce=600
 
 ## Backend
 
-PeerJS has a included signaling server, a service that allow peers to find each others and establish a connection.
+PeerJS has a included signaling server, a service that allow peers to find each others and enstablish a connection.
 
-I preferred using an express server for signaling with socket.io, this way the sender peer can have a list of the online users and avoiding copy and pasting the UUID.
+I prefered using a express server for signaling with socket.io, this way the sender peer can have a list of the online users and avoiding copy and paistng the uuid.
 
 ### Docker
-The backend express server was deployed using docker and docker-compose(the config is in the backend directory).
+The backend express server was deployed usign docker and docker-compose.
 
 ## Frontend 
-The frontend is a simple multipage react app where the CSS part was done with tailwind CSS library and some animations are done with motion library by framer.
+The frontend is a simple multi page react app where the css part was done with tailwindcss library and some animations are done with motion library by framer.
 
 ## PeerJS
 
 PeerJS is a library that wrap WebRTC protocol allowing the use of peer-to-peer connections in the browser.
 
 ## Deployment
-The final step was to deploy on a VPS the web app, I usually chose nginx for this part because makes the routing and hosting multiple page on the same VPS really easy.
-
-The web app is currently online at [my website](https://p2p.kanopo.org).
+The final step was to deply on a vps the web app, I usally chose nginx for this part becouse makes the routing and hosting multiple page on the same VPS really easy.
 
 
 

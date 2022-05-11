@@ -30,8 +30,8 @@ const Send = () => {
   const [state, setState] = useState("");
 
   useEffect(() => {
-    setSocket(io("http://localhost:4000"));
-    //setSocket(io("https://p2p.kanopo.org/socket-io/"))
+    //setSocket(io("http://localhost:4000"));
+    setSocket(io("https://p2p.kanopo.org/socket-io/"))
   }, []);
 
   socket.on("connect", () => {
@@ -59,10 +59,7 @@ const Send = () => {
       //console.log(selectedId);
       //socket.emit("senderInitialSignal", [selectedId, signalOffer]);
 
-      let conn = peer.connect(selectedId, {
-        reliable: true,
-      });
-
+      let conn = peer.connect(selectedId);
       setConnection(conn);
     } else {
       console.error("Select one peer");
@@ -70,8 +67,7 @@ const Send = () => {
   };
 
   const [file, setFile] = useState();
-  const [arrayOfChunks, setArrayOfChunks] = useState();
-  const [blob, setBlob] = useState();
+  const [arrayBuffer, setArrayBuffer] = useState();
 
   const selectFile = (event) => {
     let tmp_file = event.target.files[0];
@@ -80,50 +76,27 @@ const Send = () => {
     let tmp_blob = new Blob([tmp_file], {
       type: tmp_file.type,
     });
-
-    setBlob(tmp_blob);
+    //console.log(tmp_blob)
 
     worker1.postMessage(tmp_blob);
+
+    //setBlob(tmp_blob);
   };
 
   worker1.onmessage = (event) => {
     console.log(event.data);
-
-    setArrayOfChunks(event.data);
+    setArrayBuffer(event.data);
     worker1.terminate();
   };
 
   const sendFile = () => {
-    for (let i = 0; i < arrayOfChunks.length; i++) {
-
-      console.log(arrayOfChunks.length)
-
-      let done = false;
-
-      if (i === arrayOfChunks.length - 1) {
-        done = true;
-      }
-
-      
-      connection.send({
-        file: arrayOfChunks[i],
-        filename: file.name,
-        filetype: file.type,
-        done: done
-      });
-    }
-
-    
-
     //worker2.postMessage(arrayBuffer);
-    //console.log(arrayBuffer);
-    /*
+    console.log(arrayBuffer);
     connection.send({
       file: arrayBuffer,
       filename: file.name,
       filetype: file.type,
     });
-    */
   };
 
   return (

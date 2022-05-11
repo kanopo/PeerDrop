@@ -4,8 +4,6 @@ import { motion } from "framer-motion";
 import { io } from "socket.io-client";
 import Peer from "peerjs";
 const Recive = () => {
-  let worker1 = new Worker("./arrayOfBufferArrayToArrayBuffer.js");
-
   const [socket, setSocket] = useState(io);
   const [peer, setPeer] = useState(new Peer());
 
@@ -14,8 +12,8 @@ const Recive = () => {
   let [socketId, setSocketId] = useState("");
 
   useEffect(() => {
-    setSocket(io("http://localhost:4000"));
-    //setSocket(io("https://p2p.kanopo.org/socket-io/"))
+    //setSocket(io("http://localhost:4000"));
+    setSocket(io("https://p2p.kanopo.org/socket-io/"))
   }, []);
 
   socket.on("connect", () => {
@@ -41,42 +39,20 @@ const Recive = () => {
 
   const [file, setFile] = useState();
   const [downloadUI, setDownlodUI] = useState(<h1>nothing to download</h1>);
-  const [uuid, setUuid] = useState()
-  const [filename, setFilename] = useState()
 
   peer.on("open", () => {
     if (peer.id.length < 25) {
     }
   });
 
-  let arrayOfBlobs = [];
-
   peer.on("connection", (conn) => {
     console.log("connection");
     setState("Waiting for file");
-    let tmp_uuid = crypto.randomUUID();
-    setUuid(tmp_uuid)
+    let uuid = crypto.randomUUID();
     conn.on("data", (data) => {
       console.log("recived: ", data);
 
-
-      if (data.done === true) {
-        arrayOfBlobs.push(data);
-        console.log(arrayOfBlobs);
-        setFilename( data.filename)
-        worker1.postMessage(arrayOfBlobs);
-
-        
-
-
-      } else {
-        //let blob = new Blob([data.file], { type: data.filetype });
-
-        arrayOfBlobs.push(data);
-      }
-
-      /*
-
+      let blob = new Blob([data.file], { type: data.filetype });
       let url = URL.createObjectURL(blob);
 
       let handleDownload = async () => {
@@ -93,37 +69,10 @@ const Recive = () => {
         );
       };
 
-      */
-      //handleDownload();
+      handleDownload();
     });
   });
 
-
-  worker1.onmessage = (event) => {
-    console.log(event.data);
-
-    let url = URL.createObjectURL(event.data);
-
-    let handleDownload = async () => {
-      setFile({
-        id: uuid,
-        url: url,
-        name:filename,
-      });
-
-      setDownlodUI(
-        <a href={file.url} download={file.name}>
-          {file.name}
-        </a>
-      );
-    };
-
-    handleDownload()
-    
-
-    
-    worker1.terminate();
-  };
   useEffect(() => {
     if (file === undefined) {
       setDownlodUI(<h1>Nothing recived</h1>);
@@ -160,7 +109,9 @@ const Recive = () => {
               </p>
             </div>
 
-            <div className="invisible my-5 mb-8">{downloadUI}</div>
+            <div className="invisible my-5 mb-8">
+              {downloadUI}
+            </div>
           </div>
 
           <p className="p-5">(ﾉ◕ヮ◕)ﾉ*:・ﾟ✧</p>
