@@ -18,7 +18,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "https://p2p.kanopo.org",
   "display": "standalone",
   "theme_color": "#2e3440",
   "background_color": "#2e3440"
