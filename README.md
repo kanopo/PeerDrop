@@ -1,5 +1,6 @@
 # PeerDrop
 - [PeerDrop](#peerdrop)
+  - [Guide](#guide)
   - [Involved technology](#involved-technology)
   - [The idea](#the-idea)
   - [NAT](#nat)
@@ -12,6 +13,14 @@
   - [PeerJS](#peerjs)
   - [Deployment](#deployment)
   - [Demo](#demo)
+
+## Guide
+1. Both the two users should go to [PeerDrop](https://p2p.kanopo.org)
+2. User **A** go to p2p/send and user **B** go to p2p/recive
+3. User **B**(the reciver) send his identity code to user **A**
+4. User **A** select the correct ID from his dropdown menu(if the ID isn't there, press the refresh button)
+5. After user **A** has selected and started the connection with user **B** the p2p connection is established.
+6. After the connection, user **A** can pick a file from his file system and send it to user **B** 
 
 ## 	Involved technology
 PeerDrop is a "*web app*" built using:

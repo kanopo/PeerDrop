@@ -12,6 +12,21 @@ const About = () => {
         <div className="min-h-[86vh] flex flex-col justify-center py-10 items-center">
           <h1 className="text-2xl">About</h1>
 
+          <p>
+            This is a personal homework for the course of Tecnologie Internet
+          </p>
+          <p>
+            <a
+              href="https://github.com/kanopo/PeerDrop"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-[#bf616a]"
+            >
+              This repo
+            </a>{" "}
+            contain all the information about this project.
+          </p>
+
           <p className="p-5">(ﾉ◕ヮ◕)ﾉ*:・ﾟ✧</p>
         </div>
       </motion.div>

@@ -9,8 +9,9 @@ const Home = () => {
         animate={{ opacity: 1 }}
         transition={{ ease: "easeInOut", duration: 0.5 }}
       >
-        <div className="min-h-[86vh] flex flex-col justify-center py-10 items-center">
-          <h1 className="text-2xl">PeerDrop</h1>
+        <div className="min-h-[86vh] flex flex-col justify-center items-center">
+          <h1 className="text-2xl p-3">PeerDrop</h1>
+          <p className="p-5">A simple peer-to-peer file mover.</p>
 
           <p className="p-5">(ﾉ◕ヮ◕)ﾉ*:・ﾟ✧</p>
         </div>

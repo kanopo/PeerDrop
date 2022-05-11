@@ -28,8 +28,8 @@ const Send = () => {
   const [state, setState] = useState("");
 
   useEffect(() => {
-    setSocket(io("http://localhost:4000"));
-    //setSocket(io("https://p2p.kanopo.org/socket-io/"));
+    //setSocket(io("http://localhost:4000"));
+    setSocket(io("https://p2p.kanopo.org/socket-io/"));
   }, []);
 
   socket.on("connect", () => {

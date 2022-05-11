@@ -12,8 +12,8 @@ const Recive = () => {
   let [socketId, setSocketId] = useState("");
 
   useEffect(() => {
-    setSocket(io("http://localhost:4000"));
-    //setSocket(io("https://p2p.kanopo.org/socket-io/"))
+    //setSocket(io("http://localhost:4000"));
+    setSocket(io("https://p2p.kanopo.org/socket-io/"))
   }, []);
 
   socket.on("connect", () => {
@@ -38,7 +38,7 @@ const Recive = () => {
   });
 
   const [file, setFile] = useState();
-  const [downloadUI, setDownlodUI] = useState(<h1>nothing to download</h1>);
+  const [downloadUI, setDownlodUI] = useState(<h1></h1>);
 
   peer.on("open", () => {
     if (peer.id.length < 25) {
