@@ -5,8 +5,6 @@ import { io } from "socket.io-client";
 import Peer from "peerjs";
 
 const Send = () => {
-  let worker1 = new Worker("./blobToBinaryArray.js");
-
   const [socket, setSocket] = useState(io);
   const [peer, setPeer] = useState(
     new Peer({
@@ -30,8 +28,8 @@ const Send = () => {
   const [state, setState] = useState("");
 
   useEffect(() => {
-    //setSocket(io("http://localhost:4000"));
-    setSocket(io("https://p2p.kanopo.org/socket-io/"))
+    setSocket(io("http://localhost:4000"));
+    //setSocket(io("https://p2p.kanopo.org/socket-io/"));
   }, []);
 
   socket.on("connect", () => {
@@ -68,6 +66,7 @@ const Send = () => {
 
   const [file, setFile] = useState();
   const [arrayBuffer, setArrayBuffer] = useState();
+  const [blob, setBlob] = useState();
 
   const selectFile = (event) => {
     let tmp_file = event.target.files[0];
@@ -78,22 +77,25 @@ const Send = () => {
     });
     //console.log(tmp_blob)
 
-    worker1.postMessage(tmp_blob);
+    //worker1.postMessage(tmp_blob);
 
-    //setBlob(tmp_blob);
+    setBlob(tmp_blob);
   };
+
+  /*
 
   worker1.onmessage = (event) => {
     console.log(event.data);
     setArrayBuffer(event.data);
     worker1.terminate();
   };
+  */
 
   const sendFile = () => {
     //worker2.postMessage(arrayBuffer);
     console.log(arrayBuffer);
     connection.send({
-      file: arrayBuffer,
+      file: blob,
       filename: file.name,
       filetype: file.type,
     });

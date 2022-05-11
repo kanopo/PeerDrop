@@ -12,8 +12,8 @@ const Recive = () => {
   let [socketId, setSocketId] = useState("");
 
   useEffect(() => {
-    //setSocket(io("http://localhost:4000"));
-    setSocket(io("https://p2p.kanopo.org/socket-io/"))
+    setSocket(io("http://localhost:4000"));
+    //setSocket(io("https://p2p.kanopo.org/socket-io/"))
   }, []);
 
   socket.on("connect", () => {
@@ -48,6 +48,7 @@ const Recive = () => {
   peer.on("connection", (conn) => {
     console.log("connection");
     setState("Waiting for file");
+
     let uuid = crypto.randomUUID();
     conn.on("data", (data) => {
       console.log("recived: ", data);
@@ -64,7 +65,7 @@ const Recive = () => {
 
         setDownlodUI(
           <a href={file.url} download={file.name}>
-            {file.name}
+            Download
           </a>
         );
       };
@@ -109,9 +110,7 @@ const Recive = () => {
               </p>
             </div>
 
-            <div className="invisible my-5 mb-8">
-              {downloadUI}
-            </div>
+            <div className="invisible my-5 mb-8">{downloadUI}</div>
           </div>
 
           <p className="p-5">(ﾉ◕ヮ◕)ﾉ*:・ﾟ✧</p>
